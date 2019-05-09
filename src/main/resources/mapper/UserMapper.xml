@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangxb.wxbhome.dao.UserDao">
+    <!-- model.User的resultMapper,其中column是给数据库列名,它对应model.User的property的属性-->
+    <resultMap id="userInfo" type="com.wangxb.wxbhome.model.User">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="student_id" jdbcType="BIGINT" property="studentId"/>
+        <result column="passwd" jdbcType="VARCHAR" property="password"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="college_id" jdbcType="BIGINT" property="collegeId"/>
+        <result column="sex" jdbcType="TINYINT" property="sex"/>
+    </resultMap>
+
+
+    <select id="getUserById" resultMap="userInfo">
+        SELECT
+            user_id,
+            nickname,
+            real_name,
+            student_id,
+            passwd,
+            email,
+            college_id,
+            sex
+        FROM
+            user
+        WHERE
+            user_id = #{id}
+
+    </select>
+
+
+    <select id="getUserByStudentId" resultMap="userInfo">
+        SELECT
+            user_id,
+            nickname,
+            real_name,
+            student_id,
+            passwd,
+            email,
+            college_id,
+            sex
+        FROM
+            user
+        WHERE
+            user_id = #{studentId}
+    </select>
+
+    <select id="getUserByNickName" resultMap="userInfo">
+        SELECT *
+        FROM
+            user
+        WHERE
+            user_id = #{nickname}
+    </select>
+
+    <select id="getPasswordByNickName" resultType="string">
+        SELECT passwd
+        FROM
+            user
+        WHERE
+            nickname = #{nickname}
+    </select>
+
+</mapper>
