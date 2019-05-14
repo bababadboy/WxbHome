@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         (exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
 })
+@ServletComponentScan   // filter配置必须
 public class WxbhomeApplication {
 
     public static void main(String[] args) {
