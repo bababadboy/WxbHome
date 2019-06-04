@@ -16,7 +16,7 @@ public class DemoTask {
     @Scheduled(cron = "${app.task.demoTask.cron}")
     public void doExecute(){
         long start = System.currentTimeMillis();
-        System.out.println("开始定时任务");
+        log.info("开始定时任务");
         long end = System.currentTimeMillis();
         log.info("任务用时 = {} ms" ,end - start);
     }

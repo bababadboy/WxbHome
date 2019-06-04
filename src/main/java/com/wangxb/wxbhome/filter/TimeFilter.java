@@ -1,4 +1,4 @@
-package com.wangxb.wxbhome.config;
+package com.wangxb.wxbhome.filter;
 
 import lombok.extern.slf4j.Slf4j;
 

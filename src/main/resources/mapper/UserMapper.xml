@@ -3,24 +3,28 @@
 <mapper namespace="com.wangxb.wxbhome.dao.UserDao">
     <!-- model.User的resultMapper,其中column是给数据库列名,它对应model.User的property的属性-->
     <resultMap id="userInfo" type="com.wangxb.wxbhome.model.User">
-        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <id column="id" jdbcType="BIGINT" property="userId"/>
         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
         <result column="real_name" jdbcType="VARCHAR" property="realName"/>
         <result column="student_id" jdbcType="BIGINT" property="studentId"/>
-        <result column="passwd" jdbcType="VARCHAR" property="password"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
         <result column="college_id" jdbcType="BIGINT" property="collegeId"/>
         <result column="sex" jdbcType="TINYINT" property="sex"/>
     </resultMap>
+    <insert id="addUser">
+        insert into user(nickname, password, email)
+        values (#{user.nickname},#{user.password},#{user.email})
+    </insert>
 
 
     <select id="getUserById" resultMap="userInfo">
         SELECT
-            user_id,
+            ID,
             nickname,
             real_name,
             student_id,
-            passwd,
+            password,
             email,
             college_id,
             sex
@@ -34,11 +38,11 @@
 
     <select id="getUserByStudentId" resultMap="userInfo">
         SELECT
-            user_id,
+            ID,
             nickname,
             real_name,
             student_id,
-            passwd,
+            password,
             email,
             college_id,
             sex
@@ -53,15 +57,45 @@
         FROM
             user
         WHERE
-            user_id = #{nickname}
+            NICKNAME = #{nickname}
     </select>
 
     <select id="getPasswordByNickName" resultType="string">
-        SELECT passwd
+        SELECT password
         FROM
             user
         WHERE
             nickname = #{nickname}
     </select>
+    <select id="nicknameCounts" resultType="java.lang.Integer">
+        select count(1)
+        from user
+        where nickname=#{nickname}
+    </select>
+    <select id="emailCounts" resultType="java.lang.Integer">
+        select count(1)
+        from user
+        where email=#{email}
+    </select>
+    <select id="getAllUsers" resultMap="userInfo">
+        select nickname,password,email
+        from user
+    </select>
+    <select id="getCountAllUsers" resultType="java.lang.Long">
+        select count(1)
+        from user
+    </select>
+    <select id="getUsers" resultMap="userInfo">
+        select nickname,password,email
+        from user
+        limit #{startId},#{limit}
+    </select>
+
+    <select id="getIdByNickname" resultType="java.lang.Long">
+        select ID
+        from user
+        where NICKNAME=#{nickname}
+    </select>
+
 
 </mapper>
