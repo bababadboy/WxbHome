@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangxb.wxbhome.dao.RoleDao">
+    <resultMap id="roleInfo" type="com.wangxb.wxbhome.model.Role">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <select id="getRolesByUserId" resultMap="roleInfo">
+        select r.id, r.ROLE_NAME, r.DESCRIPTION
+        from user_role left join role r on user_role.ROLE_ID = r.ID
+        where USER_ID = #{id}
+    </select>
+
+
+    <select id="getRolesByUrl" resultType="com.wangxb.wxbhome.model.Role">
+        select role.* from role left join role_permission on role.ID = role_permission.ROLE_ID
+        right join permission p on role_permission.PERMISSOIN_ID = p.ID
+        where URL = #{url}
+    </select>
+
+    <select id="getRolesByNickName" resultType="com.wangxb.wxbhome.model.Role">
+        select r.*
+        from user_role left join role r on user_role.ROLE_ID = r.ID
+        right join user u on user_role.USER_ID = u.ID
+        where NICKNAME = #{nickName}
+    </select>
+
+
+</mapper>

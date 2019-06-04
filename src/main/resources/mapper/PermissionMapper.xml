@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangxb.wxbhome.dao.PermissionDao">
+
+    <resultMap id="permissionInfo" type="com.wangxb.wxbhome.model.Permission">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="permission_name" jdbcType="VARCHAR" property="permissionName"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <select id="getPermissionsByUserId" resultMap="permissionInfo">
+        select p.ID,PERMISSION_NAME,p.URL,p.DESCRIPTION from permission p
+        right join role_permission rp on p.ID = rp.PERMISSOIN_ID
+        right join role r on rp.ROLE_ID = r.ID
+        right join user_role ur on r.ID = ur.ROLE_ID
+        where USER_ID = #{id}
+    </select>
+
+    <select id="getPermissionsByUrls" resultType="com.wangxb.wxbhome.model.Permission">
+        select permission.* from permission
+        where URL =#{url}
+    </select>
+</mapper>
