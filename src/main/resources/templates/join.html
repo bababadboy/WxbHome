@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Join 2ndStreetHDU</title>
+    <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../static/css/signup.css" th:href="@{css/signup.css}" rel="stylesheet">
+
+    <style type="text/css">
+        /* Override some defaults */
+        html, body {
+            background-color: #eee;
+        }
+        body {
+            padding-top: 40px;
+        }
+        .container {
+            width: 300px;
+        }
+
+        /* The white background content wrapper */
+        .container > .content {
+            background-color: #fff;
+            padding: 20px;
+            margin: 0 -20px;
+            -webkit-border-radius: 10px 10px 10px 10px;
+            -moz-border-radius: 10px 10px 10px 10px;
+            border-radius: 10px 10px 10px 10px;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        }
+
+        .login-form {
+            margin-left: 65px;
+        }
+
+        legend {
+            margin-right: -50px;
+            font-weight: bold;
+            color: #404040;
+        }
+        label{
+            font-weight: 600;
+        }
+        .label-link{
+            float: right;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="login-form" >
+                <h3>Join 2ndStreetHDU</h3>
+                <form id="signupForm" th:action="@{/user-signup}" th:object="${user}" method="post" autocomplete="off">
+                    <label for="username">邮箱 *</label>
+                    <div class="clearfix">
+                        <input type="email"  name="email" id="email"  autofocus="autofocus"/>
+                    </div>
+                    <label for="username">用户名 *</label>
+                    <div class="clearfix">
+                        <input type="text"  name="nickname" id="username"  autofocus="autofocus"/>
+                    </div>
+                    <label for="input-password">密码 *</label>
+                    <div class="clearfix">
+                        <input type="password" id="input-password" name="password"/>
+                    </div>
+                    <label for="input-password">确认密码 *</label>
+                    <div class="clearfix">
+                        <input type="password" id="confirm-password"/>
+                    </div>
+                    <button id="loginBtn" class="btn btn-primary" type="submit">注册</button>
+                    <label><a class="label-link" href="/login">已有账号？点击登录</a></label>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
