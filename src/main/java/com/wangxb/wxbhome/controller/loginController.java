@@ -30,25 +30,6 @@ public class loginController {
     private UserService userService;
 
     /*获取静态html的页面资源*/
-    @RequestMapping(value = "/login")
-    public String login(HashMap<String,Object> map, String urlarg){
-        return "login";
-    }
-
-    @RequestMapping(value = "/password_reset")
-    public String passwordReset(HashMap<String,Object> map, String urlarg){
-        return "password_reset";
-    }
-
-    @RequestMapping(value = {"index","/"},method = RequestMethod.GET)
-    public String getIndex(){
-        return "index";
-    }
-
-    @RequestMapping(value = "join")
-    public String join(){
-        return "join";
-    }
 
     /* 请求action*/
 //    @RequestMapping(value = "/user-logout")
