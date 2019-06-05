@@ -66,15 +66,15 @@ public class MyUserDetails extends User implements UserDetails {
      */
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     /**
-     * 判断账号是否被锁定
+     * 判断账号是否被锁定,Nonlocked = true:没被锁定啊啊啊
      */
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     /**
@@ -82,7 +82,7 @@ public class MyUserDetails extends User implements UserDetails {
      */
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     /**

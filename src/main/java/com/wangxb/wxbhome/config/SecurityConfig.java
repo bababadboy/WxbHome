@@ -48,8 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         // 配置数据源
         jdbcTokenRepository.setDataSource(dataSource);
-        // 第一次启动的时候自动建表（可以不用这句话，自己手动建表，源码中有语句的）
-//         jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
 
@@ -70,16 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .and()
-//                .rememberMe()
-//                // 设置TokenRepository
-//                .tokenRepository(persistentTokenRepository())
-//                // 配置Cookie过期时间
-////                .tokenValiditySeconds(securityProperties.getUser())
-//                // 配置UserDetailsService
-//                .userDetailsService(myUserDetailsService);
 
+        http.csrf().disable();
 
         http.formLogin()
                 .loginPage("/login")
@@ -89,11 +79,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and()
                 .authorizeRequests()// 表示以下都是授权的配置
-                // /** 暂时解决Refused to apply style from 'http://localhost:8080/login' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.问题
-                .antMatchers("/index","/join","/login","/password_reset").permitAll()
-
+                .antMatchers("/","/index","/join","/login","/password_reset").permitAll()
                 .anyRequest()// 任何请求
-                .authenticated();// 都需要身份认证
+                .authenticated()
+                .and()
+                .rememberMe()
+                // 设置TokenRepository
+                .tokenRepository(persistentTokenRepository())
+                //记住我秒数
+                .tokenValiditySeconds(3600)
+                // 配置UserDetailsService
+                .userDetailsService(userDetailsService);;// 都需要身份认证
+
 
         http.logout()
                 .logoutUrl("/user-logout")

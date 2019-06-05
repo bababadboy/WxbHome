@@ -17,9 +17,9 @@ public class PageController {
         return "/admin";
     }
 
-    @GetMapping("/hello")
-    @PreAuthorize("hasAuthority('hello')")
+    @GetMapping("/authenticated")
+    @PreAuthorize("isAuthenticated()")
     public String hello(){
-        return "/hello";
+        return "/authenticated";
     }
 }

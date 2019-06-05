@@ -12,6 +12,11 @@
     <div sec:authorize="hasAuthority('admin')"><a href="/admin">Text visible to admin</a>.</div>
     <div sec:authorize="hasAuthority('hello')"><a href="/hello"></a>Texi visible to hello permission</div>
 
+    <div sec:authorize="isRememberMe()">
+        <span>通过记住我登录</span>
+    </div>
+
+
     <div sec:authorize="isAuthenticated()">
         Authenticated as <span sec:authentication="name"></span>
         <form th:action="@{/user-logout}" method="post">
