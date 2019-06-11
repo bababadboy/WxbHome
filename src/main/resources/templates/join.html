@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Join 2ndStreetHDU</title>
-    <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet">
-    <link href="../static/css/signup.css" th:href="@{css/signup.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" th:href="@{static/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../static/css/signup.css" th:href="@{static/css/signup.css}" rel="stylesheet">
+<!--    <link href="../static/css/basic.css" th:href="@{css/basic.css}" rel="stylesheet">-->
+<!--    <link href="../static/css/desktop.css" th:href="@{css/desktop.css}" rel="stylesheet">-->
+<!--    <link href="../static/css/font-awesome.min.css" th:href="@{css/-awesome.min.css}" rel="stylesheet">-->
+<!--    <link href="../static/css/jquery.textcomplete.css" th:href="@{css/jquery.textcomplete.css}" rel="stylesheet">-->
+<!--    <link href="../static/css/loading-bar.css" th:href="@{css/select2.min.css}" rel="stylesheet">-->
+<!--    <link href="../static/css/select2.min.css" th:href="@{css/signup.css}" rel="stylesheet">-->
+<!--    <link href="../static/css/selectboxit.css" th:href="@{css/selectboxit.css}" rel="stylesheet">-->
+    <link href="../static/css/style.css" th:href="@{static/css/style.css}" rel="stylesheet">
+<!--    <link href="../static/css/tomorrow.css" th:href="@{css/tomorrow.css}" rel="stylesheet">-->
 
     <style type="text/css">
         /* Override some defaults */
         html, body {
             background-color: #eee;
-        }
-        body {
-            padding-top: 40px;
         }
         .container {
             width: 300px;
@@ -22,7 +28,7 @@
         .container > .content {
             background-color: #fff;
             padding: 20px;
-            margin: 0 -20px;
+            margin: 40px -20px;
             -webkit-border-radius: 10px 10px 10px 10px;
             -moz-border-radius: 10px 10px 10px 10px;
             border-radius: 10px 10px 10px 10px;
@@ -47,15 +53,42 @@
             float: right;
             font-size: 12px;
         }
+        #verification-code{
+            margin-top: 10px;
+        }
+        .alert{
+            width: 170px;
+        }
     </style>
 </head>
 <body>
+<div id="Top">
+    <div class="content">
+        <div style="padding-top: 6px;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tbody><tr>
+                    <td width="110" align="left"><a href="#" name="top" title="way to explore"><div id="Logo"></div></a></td>
+                    <td width="auto" align="left">
+                        <div id="Search"><form action="#" onsubmit="return dispatch()" target="_blank"><div id="qbar"><input type="text" maxlength="40" name="q" id="q" value="" onfocus="$(&#39;#qbar&#39;).addClass(&#39;qbar_focus&#39;)" onblur="$(&#39;#qbar&#39;).removeClass(&#39;qbar_focus&#39;)"></div></form></div>
+                    </td>
+                    <td width="570" align="right" style="padding-top: 2px;"><a href="/index" class="top">首页</a>&nbsp;&nbsp;&nbsp;<a href="/join" class="top">注册</a>&nbsp;&nbsp;&nbsp;<a href="/login" class="top">登录</a></td>
+                </tr>
+                </tbody></table>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="content">
         <div class="row">
             <div class="login-form" >
                 <h3>Join 2ndStreetHDU</h3>
                 <form id="signupForm" th:action="@{/user-signup}" th:object="${user}" method="post" autocomplete="off">
+                    <div th:if="${param.invalid_user}" class="alert alert-error">
+                        注册信息不满足条件
+                    </div>
+                    <div th:if="${param.invalid_code}"  class="alert alert-error">
+                        验证码错误
+                    </div>
                     <label for="username">邮箱 *</label>
                     <div class="clearfix">
                         <input type="email"  name="email" id="email"  autofocus="autofocus"/>
@@ -68,9 +101,13 @@
                     <div class="clearfix">
                         <input type="password" id="input-password" name="password"/>
                     </div>
-                    <label for="input-password">确认密码 *</label>
+                    <label for="verification-code">你是机器人吗 *</label>
+<!--                    <img src="/kaptcha" alt="点击更换">-->
+<!--                    <div style="background-image: url('../static/img/test.jpg'); background-repeat: no-repeat; width: 320px; height: 80px; border-radius: 3px; border: 1px solid #ccc;">-->
+                    <div style="background-image: url('/kaptcha'); background-repeat: no-repeat; width: 100px; height: 40px; border-radius: 3px; border: 1px solid #ccc;">
+                    </div>
                     <div class="clearfix">
-                        <input type="password" id="confirm-password"/>
+                        <input type="text" id="verification-code" name="verifyCodeActual" placeholder="请输入上图的验证码"/>
                     </div>
                     <button id="loginBtn" class="btn btn-primary" type="submit">注册</button>
                     <label><a class="label-link" href="/login">已有账号？点击登录</a></label>
@@ -79,5 +116,8 @@
         </div>
     </div>
 </div> <!-- /container -->
+<script>
+
+</script>
 </body>
 </html>

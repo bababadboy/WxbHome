@@ -1,11 +1,14 @@
 package com.wangxb.wxbhome.controller;
 
 import com.wangxb.wxbhome.dto.MessageResponse;
+import com.wangxb.wxbhome.exception.ValidateCodeException;
 import com.wangxb.wxbhome.model.User;
 import com.wangxb.wxbhome.service.UserService;
+import com.wangxb.wxbhome.util.VerificationCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,20 +60,30 @@ public class loginController {
 //        }
 //    }
 
+    /**
+     * 注意：Errors参数必须在@Valid参数后面
+     */
     @PostMapping(value = "user-signup")
     public String signup(@ModelAttribute(value = "user") @Valid User user,
-                         Model model, HttpSession session, Errors errors){
-        if (errors.hasErrors()){
+                         BindingResult result,Model model,  HttpServletRequest request){
+        if (result.hasErrors()){
             // 如果@Valid验证出错，则重新提交注册信息
-            return "redirect:join";
+            return "redirect:join?invalid_user";
+        }
+
+        try{
+            VerificationCodeUtil.checkVerifyCode(request);
+        }catch (ValidateCodeException e){
+            return "redirect:join?invalid_code";
         }
 
         MessageResponse msg = (MessageResponse) userService.signup(user);
-        model.addAttribute("user",user);
 
         if ("success".equals(msg.getStatus())){
-            session.setAttribute("user",user);
-            return "redirect:index";
+            model.addAttribute("nickname",user.getNickname());
+            model.addAttribute("id",user.getUserId());
+
+            return "redirect:login?source=join";
         }
         else {
             return "redirect:join";

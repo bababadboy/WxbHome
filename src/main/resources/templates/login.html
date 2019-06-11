@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>login</title>
-    <link href="../static/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" th:href="@{static/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../static/css/style.css" th:href="@{static/css/style.css}" rel="stylesheet">
+
     <style type="text/css">
         /* Override some defaults */
         html, body {
             background-color: #eee;
-        }
-        body {
-            padding-top: 40px;
         }
         .container {
             width: 300px;
@@ -21,7 +20,7 @@
         .container > .content {
             background-color: #fff;
             padding: 20px;
-            margin: 0 -20px;
+            margin: 30px -20px 0px -20px;
             -webkit-border-radius: 10px 10px 10px 10px;
             -moz-border-radius: 10px 10px 10px 10px;
             border-radius: 10px 10px 10px 10px;
@@ -61,7 +60,22 @@
         }
     </style>
 </head>
-<body style="">
+<body>
+<div id="Top">
+    <div class="content">
+        <div style="padding-top: 6px;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tbody><tr>
+                    <td width="110" align="left"><a href="https://www.v2ex.com/" name="top" title="way to explore"><div id="Logo"></div></a></td>
+                    <td width="auto" align="left">
+                        <div id="Search"><form action="https://www.google.com/" onsubmit="return dispatch()" target="_blank"><div id="qbar"><input type="text" maxlength="40" name="q" id="q" value="" onfocus="$(&#39;#qbar&#39;).addClass(&#39;qbar_focus&#39;)" onblur="$(&#39;#qbar&#39;).removeClass(&#39;qbar_focus&#39;)"></div></form></div>
+                    </td>
+                    <td width="570" align="right" style="padding-top: 2px;"><a href="/index" class="top">首页</a>&nbsp;&nbsp;&nbsp;<a href="/join" class="top">注册</a>&nbsp;&nbsp;&nbsp;<a href="/login" class="top">登录</a></td>
+                </tr>
+                </tbody></table>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="content">
         <div class="row">
@@ -87,7 +101,8 @@
 <!--                            <input type="hidden" id="password" name="password">-->
                         </div>
                         <label class="checkbox">
-                            <input type="checkbox" name="remember-me" id="remember_me">记住我
+                            <input type="checkbox" name="remember-me" value="true" id="remember_me" checked>
+                            <label for="remember_me">记住我</label>
                         </label>
                         <button id="loginBtn" class="btn btn-primary" type="submit">登入</button>
                     </fieldset>
@@ -108,16 +123,16 @@
         </div>
     </div>
 </div> <!-- /container -->
-<script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{js/jquery.min.js}"></script>
-<script src="../static/js/md5.js" th:src="@{js/md5.js}"></script>
-<script type="text/javascript">
-    function login() {
-        // var username = $("input[name=loginUsername]");
-        var inputPassword = $("#input-password");
-        var md5Password = $("#md5-password");
-        md5Password.val(md5(inputPassword.val()));
-        return true;
-    }
-</script>
+<!--<script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{static/js/jquery.min.js}"></script>-->
+<!--<script src="../static/js/md5.js" th:src="@{static/js/md5.js}"></script>-->
+<!--<script type="text/javascript">-->
+<!--    function login() {-->
+<!--        // var username = $("input[name=loginUsername]");-->
+<!--        var inputPassword = $("#input-password");-->
+<!--        var md5Password = $("#md5-password");-->
+<!--        md5Password.val(md5(inputPassword.val()));-->
+<!--        return true;-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>

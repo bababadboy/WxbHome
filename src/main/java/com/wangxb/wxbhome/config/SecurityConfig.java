@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -62,9 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        //解决静态资源被拦截的问题,默认前缀路径/resources/
-        web.ignoring().antMatchers("/css/**","/js/**");
+        //解决静态资源被拦截的问题,默认前缀路径/resources
+
+        web.ignoring().antMatchers("/static/**");
     }
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -79,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and()
                 .authorizeRequests()// 表示以下都是授权的配置
-                .antMatchers("/","/index","/join","/login","/password_reset").permitAll()
+                .antMatchers("/","/index","/join","/login","/user-signup","/password_reset","/kaptcha","/hello","verify_code").permitAll()
                 .anyRequest()// 任何请求
                 .authenticated()
                 .and()
@@ -87,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置TokenRepository
                 .tokenRepository(persistentTokenRepository())
                 //记住我秒数
-                .tokenValiditySeconds(3600)
+                .tokenValiditySeconds(60*60*24*7)
                 // 配置UserDetailsService
                 .userDetailsService(userDetailsService);;// 都需要身份认证
 
